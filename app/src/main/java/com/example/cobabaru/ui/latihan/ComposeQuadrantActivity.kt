@@ -38,7 +38,7 @@ class ComposeQuadrantActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AllQuadrant()
+                    ComposeAllQuadrant()
                 }
             }
         }
@@ -46,7 +46,7 @@ class ComposeQuadrantActivity : ComponentActivity() {
 }
 
 @Composable
-private fun AllQuadrant() {
+private fun ComposeAllQuadrant() {
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -111,6 +111,6 @@ private fun TextLayout(color: Color, title: Int, body: Int, modifier: Modifier =
 @Composable
 private fun QuadrantPreview() {
     CobaBaruTheme {
-        AllQuadrant()
+        ComposeAllQuadrant()
     }
 }
