@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CobaBaru"
         tools:targetApi="31">
         <activity
+            android:name=".ui.latihan.LemonDrinkActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.latihan.DiceRollerActivity"
             android:exported="false" />
         <activity
@@ -31,7 +34,7 @@
             android:name=".ui.latihan.ArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.latihan.LemonDrinkActivity"
+            android:name=".ui.latihan.TipTimeActivity"
             android:exported="true"
             android:theme="@style/Theme.CobaBaru">
             <intent-filter>
