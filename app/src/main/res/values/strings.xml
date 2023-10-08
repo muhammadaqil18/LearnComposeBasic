@@ -15,4 +15,9 @@
     <string name="row_composable_label">A layout composable that places its children in a horizontal sequence.</string>
     <string name="column_composable">Column Composable</string>
     <string name="column_composable_label">A layout composable that places its children in a vertical sequence.</string>
+    <string name="aqil">Muhammad Aqil Pratama</string>
+    <string name="android_dev">Android Developer</string>
+    <string name="phone">(+62) 8881–2345–66</string>
+    <string name="link">"@muhammadaqil18"</string>
+    <string name="email">aqil@gmail.com</string>
 </resources>
