@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -59,7 +60,7 @@ class TipTimeActivity : ComponentActivity() {
 }
 
 @Composable
-private fun TipTimeLayout() {
+fun TipTimeLayout() {
     var amountInput by remember { mutableStateOf("") }
     var tipInput by remember { mutableStateOf("") }
     var isRoundUp by remember { mutableStateOf(false) }
@@ -152,7 +153,7 @@ private fun EditNumberField(
 }
 
 @Composable
-fun RoundTipTheRow(
+private fun RoundTipTheRow(
     roundUp: Boolean,
     onRoundUpChanged: (Boolean) -> Unit,
     modifier: Modifier = Modifier
@@ -174,7 +175,8 @@ fun RoundTipTheRow(
     }
 }
 
-private fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boolean): String {
+@VisibleForTesting
+internal fun calculateTip(amount: Double, tipPercent: Double = 15.0, roundUp: Boolean): String {
     val tip = if (roundUp) {
         kotlin.math.ceil(tipPercent / 100 * amount)
     } else {
