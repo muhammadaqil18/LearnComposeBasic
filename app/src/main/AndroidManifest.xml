@@ -13,31 +13,7 @@
         android:theme="@style/Theme.CobaBaru"
         tools:targetApi="31">
         <activity
-            android:name=".ui.latihan.TipTimeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.latihan.LemonDrinkActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.latihan.DiceRollerActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.latihan.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.latihan.BusinessCardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.latihan.ComposeQuadrantActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.latihan.TaskManagerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.latihan.ArticleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.latihan.ArtSpaceActivity"
             android:exported="true"
             android:theme="@style/Theme.CobaBaru">
             <intent-filter>
