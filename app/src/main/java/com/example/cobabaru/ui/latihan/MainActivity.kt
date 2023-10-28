@@ -4,28 +4,33 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cobabaru.R
 import com.example.cobabaru.ui.data.DataSource
-import com.example.cobabaru.ui.model.Affirmation
+import com.example.cobabaru.ui.model.Topic
 import com.example.cobabaru.ui.theme.CobaBaruTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AffirmationApp()
+                    CourseGrid(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
                 }
             }
         }
@@ -46,55 +51,75 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AffirmationApp() {
-    AffirmationList(affirmationList = DataSource().loadAffirmations())
-}
-
-@Composable
-fun AffirmationList(affirmationList: List<Affirmation>, modifier: Modifier = Modifier) {
-    LazyColumn(modifier = modifier) {
-        items(affirmationList) { affirmation ->
-            AffirmationCard(
-                affirmation = affirmation,
-                modifier = Modifier.padding(8.dp)
-            )
+fun CourseGrid(modifier: Modifier = Modifier) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small)),
+        modifier = modifier
+    ) {
+        items(DataSource.topics) { topics ->
+            CourseCard(topic = topics)
         }
     }
 }
 
 @Composable
-fun AffirmationCard(affirmation: Affirmation, modifier: Modifier = Modifier) {
-    Card(modifier = modifier) {
-        Column {
+fun CourseCard(topic: Topic, modifier: Modifier = Modifier) {
+    Card {
+        Row {
             Image(
-                painter = painterResource(id = affirmation.imageResourceId),
-                contentDescription = stringResource(
-                    id = affirmation.stringResourceId
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(190.dp),
-                contentScale = ContentScale.Crop
+                painter = painterResource(id = topic.jobImage),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = modifier
+                    .size(68.dp, 68.dp)
+                    .aspectRatio(1f)
             )
-            Text(
-                text = LocalContext.current.getString(affirmation.stringResourceId),
-                modifier = Modifier
-                    .padding(16.dp),
-                style = MaterialTheme.typography.headlineSmall
-            )
+
+            Column {
+                Text(
+                    text = stringResource(id = topic.jobTitle),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 16.dp,
+                        bottom = 8.dp
+                    )
+                )
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_grain),
+                        contentDescription = null,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+
+                    Text(
+                        text = topic.numberOfCourse.toString(),
+                        style = MaterialTheme.typography.labelMedium,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                }
+            }
         }
     }
 }
 
-@Preview(showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
-fun AffirmationAppPreview() {
+fun CoursePreview() {
     CobaBaruTheme {
-        AffirmationCard(
-            affirmation = Affirmation(
-                stringResourceId = R.string.affirmation1,
-                imageResourceId = R.drawable.image1
-            )
-        )
+        val topic = Topic(R.string.tech, 18, R.drawable.tech)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CourseCard(topic)
+        }
     }
 }
